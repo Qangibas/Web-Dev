@@ -1,0 +1,140 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.container {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.photo {
+    width: 380px;
+    height: 581px;
+}
+
+.scr_cont {
+    position: absolute;
+    top: 38px;
+    left: 527px;
+    z-index: 2;
+    width: 250px;
+    height: 538px;
+}
+
+.screenshot{
+    width: 85%;
+    height: 83%;
+}
+
+.phone_photo_img {
+    width: 100%;
+}
+.inst_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+}
+.login_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #dbdbdb;
+    width: 100%;
+    text-align: center;
+}
+.logo {
+    width: 175px;
+    margin-bottom: 20px;
+}
+.inst_input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+}
+.login_btn {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #3897f0;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.fb_img{
+    padding-top: 5px;
+}
+
+.link {
+    color: #1877f2;
+    text-decoration: none;
+}
+
+.or {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+    margin: 10px 0;
+    width: 100%;
+}
+.or::before, .or::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid white;
+    margin: 0 10px;
+}
+.forgot_pass {
+    color: #00376b;
+    text-decoration: none;
+    font-size: 12px;
+    padding-top: 5px;
+}
+.signup_box {
+    text-align: center;
+    font-size: 14px;
+    background: white;
+    padding: 10px;
+    border: 1px solid #dbdbdb;
+    width: 100%;
+    margin-top: 10px;
+}
+.get_app {
+    text-align: center;
+    margin-top: 20px;
+}
+.app_links img {
+    width: 120px;
+    margin: 5px;
+}
+.footer {
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+    margin-top: 20px;
+}
+.footer a {
+    color: #00376b;
+    text-decoration: none;
+    margin: 0 5px;
+}
