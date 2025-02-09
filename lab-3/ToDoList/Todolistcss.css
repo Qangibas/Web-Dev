@@ -1,0 +1,85 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+.header{
+    background-color: #2c2c2c;
+    color: gray;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+h1{
+    margin: 0 0 0 50px;
+    font-size: 24px;
+}
+.main {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.text {
+    width: 700px;
+    font-size: 30px;
+}
+
+.input-text {
+    margin-top: -20px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+#newTask {
+    width: 500px;
+    padding: 8px;
+    font-size: 16px;
+    border: 2px solid #dcdcdc;
+    border-radius: 5px;
+}
+
+.add-btn {
+    background-color: #6868e3;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 0.5px solid black;
+    font-size: 16px;
+    cursor: pointer;
+}
+#taskInput {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+button {
+    padding: 8px 20px;
+    background-color: #337ab7;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.todo-item {
+    width: 650px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+    border-radius: 4px;
+}
+.todo-item.completed {
+    text-decoration: line-through;
+    color: #888;
+}
+.delete-btn {
+    margin-left: auto;
+    background-color: white;
+    color: red;
+}
+.checkbox {
+    margin-right: 10px;
+}
