@@ -155,7 +155,6 @@ header{
 }
 
 .product-card {
-    display: block;
     width: 250px;
     padding: 20px;
     border: 1px solid #ddd;
@@ -190,6 +189,8 @@ header{
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s;
+    display: flex;
+    justify-content: end;
 }
 
 .product-card button:hover {
