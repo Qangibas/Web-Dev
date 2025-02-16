@@ -1,6 +1,5 @@
 let todoList = document.getElementById('todoList');
 let taskInput = document.getElementById('newTask');
-let addBtn = document.getElementById('addBtn');
 
 function createTodoItem(text) {
     let div = document.createElement('div');
@@ -9,6 +8,7 @@ function createTodoItem(text) {
     let checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.className = 'checkbox';
+
     checkbox.onclick = function() {
         div.classList.toggle('completed');
     };
@@ -37,8 +37,6 @@ function addTask() {
         taskInput.value = '';
     }
 }
-
-addBtn.onclick = addTask;
 
 taskInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {

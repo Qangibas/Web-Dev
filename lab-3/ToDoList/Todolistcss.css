@@ -76,6 +76,7 @@ button {
     color: #888;
 }
 .delete-btn {
+    text-decoration: none ;
     margin-left: auto;
     background-color: white;
     color: red;
