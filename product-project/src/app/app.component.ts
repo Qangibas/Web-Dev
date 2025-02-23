@@ -1,24 +1,59 @@
 import { Component } from '@angular/core';
-import { CommonModule, DecimalPipe } from '@angular/common';
-import { Product, products, Category, categories } from './app.interface';
+import { CommonModule } from '@angular/common';
+import { Category, categories, Product, products } from './app.interface';
+import { ProductListComponent } from './product-list.component';
+import {ProductItemComponent} from './product-item.component';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  template: `
+    <div class="categories-container">
+      <div
+        *ngFor="let category of categories"
+        class="category-card"
+        [class.active]="selectedCategory?.id === category.id"
+        (click)="selectCategory(category)">
+        <h2>{{ category.name }}</h2>
+      </div>
+    </div>
+
+    <div class="products-container">
+      <app-product-item
+        *ngFor="let product of filteredProducts"
+        [product]="product"
+        (delete)="deleteProduct($event)"
+        (like)="incrementLikes($event)"
+        (shareWhatsApp)="shareOnWhatsApp($event)"
+        (shareTelegram)="shareOnTelegram($event)"
+      ></app-product-item>
+    </div>
+  `,
   styleUrls: ['./app.component.css'],
-  imports: [CommonModule, DecimalPipe],
-  standalone: true
+  standalone: true,
+  imports: [CommonModule, ProductItemComponent]
 })
 export class AppComponent {
-  products: Product[] = products;
   categories: Category[] = categories;
+  products: Product[] = products;
   selectedCategory?: Category;
-  selectedImageIndexes: { [key: number]: number } = {};
+
+  get filteredProducts(): Product[] {
+    if (!this.selectedCategory) return this.products;
+    return this.products.filter(p => p.categoryId === this.selectedCategory?.id);
+  }
+
+  selectCategory(category: Category): void {
+    this.selectedCategory = category;
+  }
 
   deleteProduct(productId: number): void {
-    this.products = this.products.filter(function (product){
-      return product.id !== productId;
-    })
+    this.products = this.products.filter(p => p.id !== productId);
+  }
+
+  incrementLikes(productId: number): void {
+    this.products = this.products.map(p =>
+      p.id === productId ? { ...p, likes: (p.likes || 0) + 1 } : p
+    );
   }
 
   shareOnWhatsApp(product: Product): void {
@@ -29,32 +64,5 @@ export class AppComponent {
   shareOnTelegram(product: Product): void {
     const text = encodeURIComponent(`Check out this product: ${product.name}\n${product.kaspiLink}`);
     window.open(`https://t.me/share/url?url=${product.kaspiLink}&text=${text}`, '_blank');
-  }
-
-  selectImage(productId: number, index: number): void {
-    this.selectedImageIndexes[productId] = index;
-  }
-
-  getDisplayedImage(product: Product): string {
-    const index = this.selectedImageIndexes[product.id] || 0;
-    return product.images?.[index] || product.mainImage;
-  }
-
-  selectCategory(category: Category): void {
-    this.selectedCategory = category;
-  }
-
-  incrementLikes(productId: number): void {
-    const product = this.products.find(p => p.id === productId);
-    if (product) {
-      product.likes = (product.likes || 0) + 1;
-    }
-  }
-
-  get filteredProducts(): Product[] {
-    if (!this.selectedCategory) {
-      return this.products;
-    }
-    return this.products.filter(p => p.categoryId === this.selectedCategory?.id);
   }
 }
