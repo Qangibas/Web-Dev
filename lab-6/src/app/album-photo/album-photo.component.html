@@ -1,0 +1,12 @@
+<div class="photos-container">
+  <h1>Photos for Album #{{ albumId }}</h1>
+
+  <button (click)="goBack()">Return</button>
+
+  <div class="photos-grid">
+    <div *ngFor="let photo of photos" class="photo-item">
+      <img [src]="photo.url" [alt]="photo.title">
+      <p>{{ photo.title }}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="album-detail-container" *ngIf="album">
+  <h1>Album Details</h1>
+
+  <div class="album-info">
+    <p><strong>Album ID:</strong> {{ album.id }}</p>
+    <p><strong>User ID:</strong> {{ album.userId }}</p>
+
+    <div class="edit-title">
+      <label for="album-title">Title:</label>
+      <input id="album-title" [(ngModel)]="editedTitle" type="text">
+      <button (click)="saveAlbum()">Save</button>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button (click)="goBack()">Return</button>
+    <button (click)="goToPhotos()">Photos</button>
+  </div>
+</div>
