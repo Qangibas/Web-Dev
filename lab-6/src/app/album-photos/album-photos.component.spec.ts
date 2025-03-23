@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AlbumPhotosComponent } from './album-photo.component';
+import { AlbumPhotosComponent } from './album-photos.component';
 
-describe('AlbumPhotoComponent', () => {
+describe('AlbumPhotosComponent', () => {
   let component: AlbumPhotosComponent;
   let fixture: ComponentFixture<AlbumPhotosComponent>;
 

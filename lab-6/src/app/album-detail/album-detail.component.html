@@ -1,19 +1,12 @@
-<div class="album-detail-container" *ngIf="album">
-  <h1>Album Details</h1>
-
-  <div class="album-info">
-    <p><strong>Album ID:</strong> {{ album.id }}</p>
-    <p><strong>User ID:</strong> {{ album.userId }}</p>
-
-    <div class="edit-title">
-      <label for="album-title">Title:</label>
-      <input id="album-title" [(ngModel)]="editedTitle" type="text">
-      <button (click)="saveAlbum()">Save</button>
-    </div>
-  </div>
-
-  <div class="actions">
-    <button (click)="goBack()">Return</button>
-    <button (click)="goToPhotos()">Photos</button>
-  </div>
+<!-- details.component.html -->
+<div *ngIf="load">
+  <fieldset>
+    <input type="text" [(ngModel)]="newAlbum.title" placeholder="Album title">
+    <button (click)="updateAlbum()">Update title</button>
+  </fieldset>
+  <h2>{{album.title}}</h2>
+  <p><a routerLink="/albums/{{album.id}}/photos">Show photo gallery</a></p>
+  <button routerLink="..">Go back</button>
 </div>
+<h4 *ngIf="!load">The page is loading...</h4>
+<div *ngIf="error" class="error">{{error}}</div>

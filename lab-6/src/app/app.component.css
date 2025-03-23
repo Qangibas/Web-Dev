@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  font-family: monospace;
+}
+
+. {
+  font-family: monospace;
+}
+.header{
+  display: inline-flex;
+}
+h2{
+  margin: 0 10px 10px;
+  padding: 2px;
+  border-radius: 10px;
+  border: solid 2px;
+}
+a{
+  text-decoration: none;
+}
+

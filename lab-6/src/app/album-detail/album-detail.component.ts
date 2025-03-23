@@ -1,54 +1,59 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Album, AlbumsService } from '../albums.service';
+import { ActivatedRoute } from '@angular/router';
+import { Albums } from '../albums';
+import { AlbumsService } from '../albums.service';
 
 @Component({
-  selector: 'app-album-detail',
-  templateUrl: './album-detail.component.html',
+  selector: 'app-details',
+  templateUrl: './details.component.html',
   standalone: false,
-  styleUrls: ['./album-detail.component.css']
+  styleUrls: ['./details.component.css']
 })
-export class AlbumDetailComponent implements OnInit {
-  album: Album | null = null;
-  editedTitle: string = '';
+export class DetailsComponent implements OnInit {
+  album: Albums = {} as Albums;
+  newAlbum: Albums = {} as Albums;
+  load: boolean = false;
+  error: string | null = null;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private albumsService: AlbumsService
-  ) { }
+    private albumsService: AlbumsService,
+    private route: ActivatedRoute
+  ) {}
 
-  ngOnInit(): void {
-    this.getAlbum();
+  ngOnInit() {
+    this.getId();
   }
 
-  getAlbum(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.albumsService.getAlbumById(id)
-      .subscribe(album => {
-        this.album = album;
-        this.editedTitle = album.title;
+  getId() {
+    this.route.paramMap.subscribe((params) => {
+      const id = Number(params.get('id'));
+      this.load = false;
+      this.albumsService.getAlbum(id).subscribe({
+        next: (album) => {
+          this.album = album;
+          this.newAlbum.title = album.title; // Initialize newAlbum title
+          this.load = true;
+        },
+        error: (err) => {
+          this.error = err.message;
+          this.load = true;
+        }
       });
+    });
   }
 
-  saveAlbum(): void {
-    if (this.album) {
-      const updatedAlbum = { ...this.album, title: this.editedTitle };
-      this.albumsService.updateAlbum(updatedAlbum)
-        .subscribe(() => {
-          this.album = updatedAlbum;
-          alert('Album title updated successfully!');
-        });
-    }
-  }
+  updateAlbum() {  // Ensure this function exists and is correctly named
+    if (!this.newAlbum.title) return;
 
-  goBack(): void {
-    this.router.navigate(['/albums']);
-  }
-
-  goToPhotos(): void {
-    if (this.album) {
-      this.router.navigate(['/albums', this.album.id, 'photos']);
-    }
+    this.newAlbum.id = this.album.id;
+    this.albumsService.updateAlbum(this.newAlbum).subscribe({
+      next: (album) => {
+        this.album = album;
+        this.newAlbum = { ...album }; // Reset newAlbum with updated values
+      },
+      error: (err) => {
+        this.error = err.message;
+      }
+    });
   }
 }

@@ -1,0 +1,11 @@
+
+<div *ngIf="load">
+  <div *ngFor="let photo of photos">
+    <p>{{photo.id}}) {{photo.title}}</p>
+    <img [src]="photo.thumbnailUrl" alt="icon">
+    <br>
+    <img [src]="photo.url" alt="photo">
+  </div>
+</div>
+<h4 *ngIf="!load">The page is loading...</h4>
+<button routerLink="..">Return back</button>

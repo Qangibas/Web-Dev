@@ -1,13 +1,15 @@
+<div>
+  <input type="text" [(ngModel)]="newAlbum.title">
+  <button (click)="addAlbum()">Create album</button>
+</div>
+<div>
+  <ol *ngIf="load">
+    <li *ngFor="let album of albums">
+      <a routerLink="/albums/{{album.id}}">{{album.title}}</a>
+      <br>
+      <button (click)="deleteAlbum(album.id)">Delete</button>
+    </li>
+  </ol>
+  <h4 *ngIf="!load">The page is loading...</h4>
 
-<div class="albums-container">
-  <h1>Albums List</h1>
-
-  <div class="albums-list">
-    <div *ngFor="let album of albums" class="album-item">
-      <div class="album-info" [routerLink]="['/albums', album.id]">
-        <h3>{{ album.title }}</h3>
-      </div>
-      <button class="delete-btn" (click)="deleteAlbum(album.id); $event.stopPropagation()">Delete</button>
-    </div>
-  </div>
 </div>

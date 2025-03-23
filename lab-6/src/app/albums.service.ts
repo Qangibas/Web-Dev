@@ -1,46 +1,51 @@
+// album.services.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
-export interface Album {
-  userId: number;
-  id: number;
-  title: string;
-}
-
-export interface Photo {
-  albumId: number;
-  id: number;
-  title: string;
-  url: string;
-  thumbnailUrl: string;
-}
+import { Albums } from './albums';
+import { Photos } from './photos';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlbumsService {
-  private baseUrl = 'https://jsonplaceholder.typicode.com';
+  private base: string = 'https://jsonplaceholder.typicode.com/albums/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private client: HttpClient) { }
 
-  getAlbums(): Observable<Album[]> {
-    return this.http.get<Album[]>(`${this.baseUrl}/albums`);
+  getAlbums(): Observable<Albums[]> {
+    return this.client.get<Albums[]>(this.base)
+      .pipe(catchError(this.handleError));
   }
 
-  getAlbumById(id: number): Observable<Album> {
-    return this.http.get<Album>(`${this.baseUrl}/albums/${id}`);
+  getAlbum(id: number): Observable<Albums> {
+    return this.client.get<Albums>(`${this.base}${id}`)
+      .pipe(catchError(this.handleError));
   }
 
-  updateAlbum(album: Album): Observable<Album> {
-    return this.http.put<Album>(`${this.baseUrl}/albums/${album.id}`, album);
+  getPhotos(id: number): Observable<Photos[]> {
+    return this.client.get<Photos[]>(`${this.base}${id}/photos`)
+      .pipe(catchError(this.handleError));
   }
 
-  deleteAlbum(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/albums/${id}`);
+  addAlbum(album: Albums): Observable<Albums> {
+    return this.client.post<Albums>(this.base, album)
+      .pipe(catchError(this.handleError));
   }
 
-  getPhotosByAlbumId(albumId: number): Observable<Photo[]> {
-    return this.http.get<Photo[]>(`${this.baseUrl}/albums/${albumId}/photos`);
+  deleteAlbum(id: number): Observable<unknown> {
+    return this.client.delete(`${this.base}${id}`)
+      .pipe(catchError(this.handleError));
+  }
+
+  updateAlbum(album: Albums): Observable<Albums> {
+    return this.client.put<Albums>(`${this.base}${album.id}`, album)
+      .pipe(catchError(this.handleError));
+  }
+
+  private handleError(error: any) {
+    console.error('An error occurred:', error);
+    return throwError(() => new Error('Something went wrong; please try again later.'));
   }
 }

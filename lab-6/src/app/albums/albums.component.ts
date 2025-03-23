@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Album, AlbumsService } from '../albums.service';
+
+import { Component } from '@angular/core';
+import {Albums} from '../albums';
+import {AlbumsService} from "../albums.service";
 
 @Component({
   selector: 'app-albums',
@@ -7,26 +9,26 @@ import { Album, AlbumsService } from '../albums.service';
   standalone: false,
   styleUrls: ['./albums.component.css']
 })
-export class AlbumsComponent implements OnInit {
-  albums: Album[] = [];
-
-  constructor(private albumsService: AlbumsService) { }
-
-  ngOnInit(): void {
-    this.loadAlbums();
+export class AlbumsComponent {
+  albums:Albums[] = [];
+  newAlbum:Albums;
+  load:boolean;
+  constructor(private albumsService:AlbumsService) {
+    this.newAlbum = {} as Albums;
+    this.load = true;
+  }
+  ngOnInit(){
+    this.load = false;
+    this.albumsService.getAlbums().subscribe((albums)=>{this.albums=albums; this.load = true;});
   }
 
-  loadAlbums(): void {
-    this.albumsService.getAlbums()
-      .subscribe(albums => this.albums = albums);
+  addAlbum(){
+    this.albumsService.addAlbum(this.newAlbum).subscribe((album)=>{this.albums.push(album);});
+    this.newAlbum = {} as Albums;
   }
 
-  deleteAlbum(id: number): void {
-    if (confirm('Are you sure you want to delete this album?')) {
-      this.albumsService.deleteAlbum(id)
-        .subscribe(() => {
-          this.albums = this.albums.filter(album => album.id !== id);
-        });
-    }
+  deleteAlbum(id:number){
+    this.albumsService.deleteAlbum(id).subscribe();
+    this.albums = this.albums.filter(album => album.id != id);
   }
 }
