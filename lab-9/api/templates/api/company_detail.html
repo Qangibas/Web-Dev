@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if company %}
+    <div class="products_list"></div>
+    <div class="product_card">
+        <h2>{{ company.name }}</h2>
+        <h3>{{ company.city }}</h3>
+        <h3>Decription</h3>
+        <p>{{ company.description }}</p>
+        <p>{{ company.address }}</p>
+    </div>
+{% endif %}
+{% if vacancies %}
+    <div class="vacancy_list">
+    {% for vacancy in vacancies %}
+        <div class="vacancy_card">
+        <h2>{{ vacancy.name }}</h2>
+        <h3>{{ vacancy.decription }}</h3>
+        <h3>{{ vacancy.salary }}$</h3>
+        </div>
+    {% endfor %}
+    </div>
+{% endif %}
+</body>
+</html>

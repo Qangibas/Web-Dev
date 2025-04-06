@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Here is list of categories!</h1>
+{% if companies %}
+    <div class="category_list"></div>
+{% for company in companies %}
+    <div class="category_card">
+        <h2>{{ company.name }}</h2>
+        <a href="{% url 'company_detail' company.id %}">link</a>
+    </div>
+{% endfor %}
+{% endif %}
+</body>
+</html>
