@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Here is list of products!</h1>
+{% if companies %}
+    <div class="products_list"></div>
+{% for company in companies %}
+    <div class="product_card {% if company.is_active %}disabled{% endif %}">
+        <hr>
+        <h2>{{ company.name }}</h2>
+        <h3>{{ company.id }}</h3>
+        <h3>{{ company.price }}$</h3>
+        <a href="{% url 'product_detail' with company.id %}">link</a>
+        <hr>
+    </div>
+{% endfor %}
+{% endif %}
+</body>
+</html>
